@@ -1,0 +1,88 @@
+
+    <div class="container">
+        <div class="col-sm">
+        <h1 class="display-2" style="color: #505668;">todo list</h1>
+        <div class="icon row" style="margin-bottom: 10px;">
+            <button type="button" class="btn cardBorder" style="width: 100px;" [ngClass]="state.all?'btn-success ':'btn-outline-success'" (click)="clickState('all')">All</button>
+            <button type="button" class="btn cardBorder" style="width: 100px;margin-left: 10px;" [ngClass]="state.active?'btn-warning ':'btn-outline-warning'" (click)="clickState('active')">active</button>
+            <button type="button" class="btn cardBorder" style="width: 100px;margin-left: 10px;margin-right: 20px;" [ngClass]="state.complete?'btn-secondary ':'btn-outline-secondary'" (click)="clickState('complete')">complete</button>
+        </div>
+    </div>
+        <div class="container">
+            <div class="input-group input-group-lg" (keyup.enter)='onAdd(itemTitle)'>
+                <input 
+                type="text" 
+                class="form-control cardBorder" 
+                aria-label="With textarea" 
+                aria-describedby="inputGroup-sizing-lg" 
+                placeholder="enter to add your text"
+                #itemTitle>
+              </div>
+        </div>
+        
+        <div class="container" style="margin-top: 20px;">
+            <div class="card-columns" *ngIf="state.all">
+            <div class=""  *ngFor="let item of toDoListArray">
+            <div class="card cardBorder">
+                <div class="card-header bg-transparent">
+                    <div class="icon row">
+                        <div (click)="alterCheck(item.$key,item.isChecked)">
+                            <i class="material-icons text-Success" *ngIf="item.isChecked" style="cursor: pointer;">radio_button_checked</i>
+                            <i class="material-icons" *ngIf="!item.isChecked" style="color: #fcb677;cursor: pointer;">radio_button_unchecked</i>
+                        </div>
+                        <div class="">
+                            <i class="material-icons delete" (click)="onDelete(item.$key)" style="color: #c05850;cursor: pointer;">delete</i>
+                        </div>  
+                    </div>
+                </div>
+                <div class="card-body"[ngClass]="item.isChecked?'text-Success':'text-unSuccess'">
+                        <p class="card-text">{{item.title}}</p>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="card-columns" *ngIf="state.active">
+            <div class=""  *ngFor="let item of toDoListArray">
+            <div class="card cardBorder" *ngIf="!item.isChecked">
+                <div class="card-header bg-transparent">
+                    <div class="icon row">
+                        <div (click)="alterCheck(item.$key,item.isChecked)">
+                            <i class="material-icons text-Success" *ngIf="item.isChecked" style="cursor: pointer;">radio_button_checked</i>
+                            <i class="material-icons" *ngIf="!item.isChecked" style="color: #fcb677;cursor: pointer;">radio_button_unchecked</i>
+                        </div>
+                        <div class="">
+                            <i class="material-icons delete" (click)="onDelete(item.$key)" style="color: #c05850;cursor: pointer;">delete</i>
+                        </div>  
+                    </div>
+                </div>
+                <div class="card-body"[ngClass]="item.isChecked?'text-Success':'text-unSuccess'">
+                        <p class="card-text">{{item.title}}</p>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="card-columns" *ngIf="state.complete">
+            <div class=""  *ngFor="let item of toDoListArray">
+            <div class="card cardBorder" *ngIf="item.isChecked">
+                <div class="card-header bg-transparent">
+                    <div class="icon row">
+                        <div (click)="alterCheck(item.$key,item.isChecked)">
+                            <i class="material-icons text-Success" *ngIf="item.isChecked" style="cursor: pointer;">radio_button_checked</i>
+                            <i class="material-icons" *ngIf="!item.isChecked" style="color: #fcb677;cursor: pointer;">radio_button_unchecked</i>
+                        </div>
+                        <div class="">
+                            <i class="material-icons delete" (click)="onDelete(item.$key)" style="color: #c05850;cursor: pointer;">delete</i>
+                        </div>  
+                    </div>
+                </div>
+                <div class="card-body"[ngClass]="item.isChecked?'text-Success':'text-unSuccess'">
+                        <p class="card-text">{{item.title}}</p>
+                </div>
+              </div>
+            </div>
+        </div>
+        </div>
+      </div>
+
